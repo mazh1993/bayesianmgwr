@@ -44,23 +44,4 @@ inla.rgeneric.beta.model <-
         val <- do.call(match.arg(cmd), args = list())
         return(val)
       }
-    
-    Dist0 <- as.matrix(dist(data.frame(data.inla$u, data.inla$v)))
-    Dmax <- max(Dist0); Dmax
-    Dist01 <- Dist0/Dmax
-    D <- Dist01
-    NN <- nrow(D)
-    
-    beta.model <- inla.rgeneric.define(inla.rgeneric.beta.model,
-                                       D = D,
-                                       n = NN)
-    f.beta <- y ~ -1 + f(idx1, x1, model = beta.model, n = NN) + 
-      f(idx2, x2, model = beta.model, n = NN) + f(idx3, x3, model = beta.model, n = NN) + 
-      f(idx4, x4, model = beta.model, n = NN) + f(idx5, x5, model = beta.model, n = NN) 
-    
-    m.beta <- inla(f.beta,
-                   safe = FALSE, 
-                   data = data.frame(data.inla, idx1 = 1:NN, idx2 = 1:NN, idx3 = 1:NN
-                                     , idx4 = 1:NN, idx5 = 1:NN),
-                   family = "gaussian",
-                   verbose = T)
+ 
